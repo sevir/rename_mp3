@@ -1,0 +1,13 @@
+name: rename_mp3
+version: 0.1.0
+
+authors:
+  - José Fco. Rives <jose@digio.es>
+
+targets:
+  rename_mp3:
+    main: src/rename_mp3.cr
+
+crystal: 0.26.0
+
+license: MIT
