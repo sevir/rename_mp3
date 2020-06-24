@@ -2,6 +2,7 @@
 require "logger"
 require "option_parser"
 require "dir"
+require "file_utils"
 
 module RenameMp3
   VERSION = "0.1.0"
@@ -37,12 +38,32 @@ module RenameMp3
     end
   end
 
-  ENV["SOURCE_DIR"] = "./" unless ENV.has_key? "SOURCE_DIR"
-  ENV["DESTINATION_DIR"] = "./" unless ENV.has_key? "DESTINATION_DIR"
-
+  ENV["SOURCE_DIR"] ||= "./"
+  ENV["DESTINATION_DIR"] ||= "./"
+  ENV["PREFIX"] ||= "music_"
+  ENV["FILES"] ||= "0"
+  files = 1
 
   # Search all mp3
   Dir.glob("#{ENV["SOURCE_DIR"]}**/*.mp3") do |file|
-    puts file
+    if ENV["FILES"] == "0"
+      # Move files
+      FileUtils.mv file, "#{ENV["DESTINATION_DIR"]}#{ENV["PREFIX"]}#{files.to_s}.mp3"
+    else
+      subfolder_number = files // ENV["FILES"].to_i
+      subfolder_path = %Q(#{ENV["DESTINATION_DIR"]}#{ENV["PREFIX"]}_#{subfolder_number.to_s}/)
+
+      if (ENV["FILES"].to_i % files == 0) || files == 1
+        # mkdir subfolder
+        Dir.mkdir_p subfolder_path
+      end
+
+      # Move file
+      FileUtils.mv file, "#{subfolder_path}#{ENV["PREFIX"]}#{files.to_s}.mp3"
+    end
+
+    files += 1
   end
+
+  puts "Moved #{files-1} files"
 end
