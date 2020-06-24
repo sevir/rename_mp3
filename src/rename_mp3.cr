@@ -44,10 +44,16 @@ module RenameMp3
   ENV["FILES"] ||= "0"
   files = 1
 
+  log.debug "Searching in #{ENV["SOURCE_DIR"]}"
+  log.debug "Moving to #{ENV["DESTINATION_DIR"]}"
+
   # Search all mp3
   Dir.glob("#{ENV["SOURCE_DIR"]}**/*.mp3") do |file|
+    log.debug "moving file #{file}"
+
     if ENV["FILES"] == "0"
       # Move files
+      log.info "Moved to #{ENV["DESTINATION_DIR"]}#{ENV["PREFIX"]}#{files.to_s}.mp3"
       FileUtils.mv file, "#{ENV["DESTINATION_DIR"]}#{ENV["PREFIX"]}#{files.to_s}.mp3"
     else
       subfolder_number = files // ENV["FILES"].to_i
@@ -55,10 +61,12 @@ module RenameMp3
 
       if (ENV["FILES"].to_i % files == 0) || files == 1
         # mkdir subfolder
+        log.debug "Creating folder #{subfolder_path}"
         Dir.mkdir_p subfolder_path
       end
 
       # Move file
+      log.info "Moved to #{ENV["DESTINATION_DIR"]}#{ENV["PREFIX"]}#{files.to_s}.mp3"
       FileUtils.mv file, "#{subfolder_path}#{ENV["PREFIX"]}#{files.to_s}.mp3"
     end
 
