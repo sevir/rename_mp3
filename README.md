@@ -1,22 +1,11 @@
 # rename_mp3
 
-TODO: Write a description here
+A small executable for renaming mp3 from subfolders into a fixed structure
 
-## Installation
-
-TODO: Write installation instructions here
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/rename_mp3/fork>)
+1. Fork it (<https://github.com/sevir/rename_mp3/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -24,4 +13,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [your-github-user](https://github.com/your-github-user) José Fco. Rives - creator, maintainer
+- [sevir](https://github.com/sevir) José Fco. Rives - creator, maintainer
